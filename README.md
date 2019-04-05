@@ -10,6 +10,7 @@ https://translate.google.com/translate_tts?ie=UTF-8&q=สวัสดีคร�
 ```
 python -m venv venv
 venv\Script\activate.bat
+pip install -r requirements.txt
 python tts_service.py
 ```
 
