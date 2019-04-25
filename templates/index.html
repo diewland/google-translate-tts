@@ -17,11 +17,12 @@
 
     <div class='container mt-3'>
       <h1>Google Translate TTS</h1>
-      <input id='msg' class='form-control mr-2' type='text' value='ผมอยากเห็นคนไทยบินได้'>
-      <div class='text-right mt-2'>
-        <input id='lang' type='text' value='th-TH'>
-        <input id='speak' class='btn btn-primary' type='button' value='Speak'>
-      </div>
+      <textarea id="msg" class="form-control" rows='3'>สวัสดีครับ คุณลูกค้ารับอะไรดีครับ ?</textarea>
+      <button type="button" id='btn-speak' class="btn btn-primary btn-lg my-3">Speak</button>
+      <select id='cmb-lang' class="custom-select" style='width: 120px;'>
+        <option value='th-TH'>Thai</option>
+        <option value='en-US'>English</option>
+      </select>
     </div>
 
     <!-- Optional JavaScript -->
@@ -30,9 +31,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script>
-      $('#speak').click(() => {
+
+      // lang
+      $('#cmb-lang').change((evt) => {
+        let lang = $(evt.target).val();
+        let msg = '';
+        if(lang == 'th-TH'){
+          msg = 'สวัสดีครับ คุณลูกค้ารับอะไรดีครับ ?';
+        }
+        else if(lang == 'en-US'){
+          msg = 'Hello, Welcome to coffee shop, Can I help you ?';
+        }
+        $('#msg').val(msg);
+      });
+
+      // speak
+      $('#btn-speak').click(() => {
         let msg = $('#msg').val();
-        let lang = $('#lang').val() || 'th-TH';
+        let lang = $('#cmb-lang').val();
         let url = `/tts?msg=${msg}&lang=${lang}`;
         (new Audio(url)).play();
       });
